@@ -27,6 +27,8 @@ RUN pecl install mcrypt-1.0.1 && docker-php-ext-enable mcrypt
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j5 mysqli gd soap zip ldap
 ADD scripts/install-composer.sh /opt/install-composer.sh
+ADD . /var/www
+RUN chown -R www-data:www-data /var/www
 RUN dos2unix /opt/install-composer.sh && \
   chmod +x /opt/install-composer.sh && \
   /opt/install-composer.sh && \
